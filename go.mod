@@ -2,10 +2,7 @@ module github.com/ciscokwiz/CBN-FinanceData-Reporter
 
 go 1.25.4
 
-require (
-	github.com/joho/godotenv v1.5.1
-	github.com/xuri/excelize/v2 v2.10.1
-)
+require github.com/xuri/excelize/v2 v2.10.1
 
 require (
 	github.com/richardlehane/mscfb v1.0.6 // indirect

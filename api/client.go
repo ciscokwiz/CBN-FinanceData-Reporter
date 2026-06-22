@@ -4,19 +4,13 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
-	"os"
 
-	"github.com/joho/godotenv"
 )
 
 
 func GetReport() []FinancialData {
-	err := godotenv.Load()
-	if err != nil {
-		panic("Error loading .env file")
-	}
 
-	url := os.Getenv("CBN_URL")
+	url := "https://www.cbn.gov.ng/api/GetAllFinancialData"
 
 
 	resp, err := http.Get(url)

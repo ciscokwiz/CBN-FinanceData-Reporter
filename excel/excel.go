@@ -53,7 +53,7 @@ func writeHeaders(sw *excelize.StreamWriter, data api.FinancialData) error {
 		headers[i] = value.Field(i).Name
 	}
 
-	headers = append(headers, "Daily_Liquidity")
+	headers = append(headers, "Liquidity (N'000,000)")
 
 	return sw.SetRow("A1", headers)
 }
@@ -99,8 +99,27 @@ func StructToSlice(data api.FinancialData) []interface{} {
 func calculateDailyLiquidity(data api.FinancialData) float64 {
 
 	openbal, _ := strconv.ParseFloat(data.OpeBal, 64)
-	slFacility, _ := strconv.ParseFloat(data.SlFacility, 64)
+	rediscbills,_ := strconv.ParseFloat(data.RediscBills, 64)
+	slfacility, _ := strconv.ParseFloat(data.SlFacility, 64)
+	sdfacility, _ := strconv.ParseFloat(data.SdFacility, 64)
+	repo, _ := strconv.ParseFloat(data.Repo, 64)
+	revrepo,_ := strconv.ParseFloat(data.RevRepo, 64)
+	omosales, _ := strconv.ParseFloat(data.OmoSales, 64)
+	omorepay,_ := strconv.ParseFloat(data.OmoRepay, 64)
+	pmsales,_ := strconv.ParseFloat(data.PmSales, 64)
+	pmrepay,_ := strconv.ParseFloat(data.PmRepay, 64) 
+	crr, _ := strconv.ParseFloat(data.Crr, 64)
+	netwdas, _ := strconv.ParseFloat(data.NetWdas, 64)
+	statalloc,_ := strconv.ParseFloat(data.StatAlloc, 64)
+	jvcash, _ := strconv.ParseFloat(data.JvCash, 64)
+	netclr,_ := strconv.ParseFloat(data.NetClr, 64)
+	ndicprem, _ := strconv.ParseFloat(data.NdicPrem, 64)
+	omajor, _ := strconv.ParseFloat(data.OMajor, 64)
 
-	dailyliquid := openbal * slFacility
-	return dailyliquid
+
+
+	Liquidity := (openbal + rediscbills - slfacility + sdfacility - repo + revrepo - omosales + omorepay - pmsales + pmrepay - crr + netwdas - statalloc + jvcash - netclr + ndicprem - omajor) * 1000000
+
+
+	return Liquidity
 }
